@@ -10,6 +10,7 @@
 .container {
   display: flex;
   flex: 1;
+  transition: all 1s ease-in-out;
 }
 
 @media (max-width: mediaQuery) {
