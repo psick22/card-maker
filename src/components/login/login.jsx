@@ -17,7 +17,6 @@ const Login = ({ authService }) => {
       goToMaker(result.user.uid);
     });
   };
-
   useEffect(() => {
     authService.onAuthChange(user => {
       user && goToMaker(user.uid);
