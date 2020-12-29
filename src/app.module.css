@@ -1,4 +1,4 @@
-@value makerGrey from './common/color.css';
+@value makerGrey from './common/colors.css';
 
 * {
   box-sizing: border-box;
