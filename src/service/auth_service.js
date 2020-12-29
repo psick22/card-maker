@@ -1,5 +1,7 @@
-import firebase from "firebase";
-import firebaseApp from "./firebase";
+/* eslint-disable class-methods-use-this */
+import firebase from 'firebase';
+import firebaseApp from './firebase';
+
 class AuthService {
   login(providerName) {
     const authProvider = new firebase.auth[`${providerName}AuthProvider`]();
