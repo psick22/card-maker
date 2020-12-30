@@ -3,8 +3,7 @@ import styles from './card_edit_form.module.css';
 import Button from '../button/button';
 import ImageFileInput from '../image_file_input/image_file_input';
 
-const Card_edit_form = ({ card }) => {
-  const onSubmit = () => {};
+const CardEditForm = ({ card }) => {
   const {
     name,
     company,
@@ -38,10 +37,10 @@ const Card_edit_form = ({ card }) => {
       ></textarea>
       <div className={styles.fileInput}>
         <ImageFileInput />
-        <Button name="Delete" onClick={onSubmit} />
       </div>
+      <Button name="Delete" />
     </form>
   );
 };
 
-export default Card_edit_form;
+export default CardEditForm;
