@@ -1,14 +1,17 @@
-@value makerLightGrey from '../../common/colors.css';
+@value makerLightGrey, makerWheat, makerGreen from '../../common/colors.css';
 .container {
   width: 100%;
   height: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .input {
   display: none;
 }
 .button {
   width: 100%;
+  height: 100%;
   background-color: makerLightGrey;
   border: 0;
   cursor: pointer;
@@ -18,4 +21,26 @@
 }
 .button:hover {
   opacity: 0.8;
+}
+.button.grey {
+  background-color: makerLightGrey;
+}
+.button.pink {
+  background-color: makerWheat;
+}
+.loading {
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  border: 3.5px solid makerLightGrey;
+  border-top: 3.5px solid makerGreen;
+  animation: spin 1.5s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
