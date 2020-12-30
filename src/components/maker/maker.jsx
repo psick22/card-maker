@@ -6,42 +6,11 @@ import Header from '../header/header';
 import Preview from '../preview/preview';
 import styles from './maker.module.css';
 
-const Maker = ({ FileInput, authService }) => {
-  const [cards, setCards] = useState({
-    1: {
-      id: '1',
-      name: 'Kirok',
-      company: 'nomad',
-      theme: 'dark',
-      title: 'software engineer',
-      email: 'kgirok@gamil.com',
-      message: 'gosu',
-      fileName: 'kirok',
-      fileURL: null,
-    },
-    2: {
-      id: '2',
-      name: 'Kirok',
-      company: 'nomad',
-      theme: 'light',
-      title: 'software engineer',
-      email: 'kgirok@gamil.com',
-      message: 'gosu',
-      fileName: 'kirok',
-      fileURL: null,
-    },
-    3: {
-      id: '3',
-      name: 'Kirok',
-      company: 'nomad',
-      theme: 'colorful',
-      title: 'software engineer',
-      email: 'kgirok@gamil.com',
-      message: 'gosu',
-      fileName: 'kirok',
-      fileURL: null,
-    },
-  });
+const Maker = ({ FileInput, authService, cardRepository }) => {
+  const historyState = useHistory().state;
+  const [cards, setCards] = useState({});
+  const [userId, setUserId] = useState(historyState && historyState.id);
+
   const history = useHistory();
 
   const onLogout = () => {
@@ -54,6 +23,7 @@ const Maker = ({ FileInput, authService }) => {
       update[card.id] = card;
       return update;
     });
+    cardRepository.saveCard(userId, card);
   };
 
   const deleteCard = card => {
@@ -62,14 +32,27 @@ const Maker = ({ FileInput, authService }) => {
       delete update[card.id];
       return update;
     });
+    cardRepository.deleteCard(userId, card);
   };
   useEffect(() => {
+    if (!userId) {
+      return;
+    }
+    cardRepository.syncCards(userId, cards => {
+      setCards(cards);
+    });
+    return () => stopSync();
+  }, [userId]);
+  useEffect(() => {
     authService.onAuthChange(user => {
-      if (!user) {
+      if (user) {
+        setUserId(user.uid);
+      } else {
         history.push('/');
       }
     });
   });
+
   return (
     <section className={styles.maker}>
       <Header onLogout={onLogout} />
