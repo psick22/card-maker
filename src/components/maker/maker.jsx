@@ -35,14 +35,17 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
     cardRepository.deleteCard(userId, card);
   };
   useEffect(() => {
+    // mount 될때 + userId, cardRepository가 업데이트 될때
     if (!userId) {
       return;
     }
-    cardRepository.syncCards(userId, cards => {
+    const stopSync = cardRepository.syncCards(userId, cards => {
       setCards(cards);
     });
+    // unmount 될때 stopSync() 함수를 return함
     return () => stopSync();
-  }, [userId]);
+  }, [userId, cardRepository]);
+
   useEffect(() => {
     authService.onAuthChange(user => {
       if (user) {
@@ -51,7 +54,7 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
         history.push('/');
       }
     });
-  });
+  }, [userId, history, authService]);
 
   return (
     <section className={styles.maker}>
