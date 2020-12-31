@@ -8,10 +8,8 @@ const firebaseConfig = {
   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
   databaseURL: process.env.REACT_APP_FIREBASE_DB_URL,
 };
-
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
-
 export const firebaseAuth = firebaseApp.auth();
 export const firebaseDatabase = firebaseApp.database();
 export const googleProvider = new firebase.auth.GoogleAuthProvider();
